@@ -1,0 +1,64 @@
+<?php
+
+include_once('connect.php');
+include_once('functions.php');
+
+// If no input, display page, or redirect. 
+if ((empty($_GET['id'])) && (empty($_GET['email']))) {
+    // no data passed by get
+   echo "Error: Malformed submission.";
+   
+}
+
+// check length of input
+if (strlen($_GET['id']) > 32) {
+  echo "Error: The id length you have specified is too long.";
+  exit;
+} 
+
+if (strlen($_GET['email']) > 80) {
+  echo "Error: The email length you have specified is too long.";
+  exit;
+} 
+
+
+if (strlen($_GET['click']) > 4) {
+  echo "Error: The click length you have specified is too long.";
+  exit;
+} 
+// check allowed characters
+ $my_id    = filter_var($_GET['id'], FILTER_SANITIZE_STRING);
+ $my_email = filter_var($_GET['email'], FILTER_SANITIZE_STRING);
+ $my_click = filter_var($_GET['click'], FILTER_SANITIZE_STRING);
+
+// perform email lookup
+
+// reverse my_id 
+$rmy_id = strrev($my_id);
+
+$rhash_email = emailHash($my_email); 
+
+
+if ($my_email){
+    // get rhash for email address
+    echo "<br> rhash_email $rhash_email";
+
+}else{
+
+    // lookup and verify hash
+    echo "<br> reversed hash $my_id";   
+    echo "<br> original hash $rmy_id";
+
+   // update db
+
+}
+
+
+// $hash1 = md5("$my_id");
+
+
+// opt-out (blacklist)
+
+
+
+?>
