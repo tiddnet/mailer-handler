@@ -3,8 +3,8 @@
 include_once('my_func.php');
 
 if ($my_email){
-    // get rhash for email address
-    echo "<br> rhash_email $rhash_email";
+    // emailOpen($conn, $my_email, $my_campaign);
+    $result = emailBlacklist($conn, $email);
 
 }else{
 
@@ -16,6 +16,11 @@ if ($my_email){
 
 }
 
+
+$ua = $_SERVER['HTTP_USER_AGENT'].'';
+
+echo "<br>UA: $ua";
+echo "<br>IP: $your_ip"; 
 
 // $hash1 = md5("$my_id");
 

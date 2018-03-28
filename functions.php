@@ -291,18 +291,30 @@ function emailHash($email) {
     return $return;
 }
 
-function emailOpen($conn, $EMAIL_HASH, $campaign) {
+/*
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+| Field     | Type            | Null | Key | Default           | Extra                       |
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+| id        | int(6) unsigned | NO   | PRI | NULL              | auto_increment              |
+| campaign  | varchar(30)     | NO   |     | NULL              |                             |
+| email     | varchar(256)    | YES  |     | NULL              |                             |
+| UA        | varchar(512)    | YES  |     | NULL              |                             |
+| timestamp | timestamp       | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-----------+-----------------+------+-----+-------------------+-----------------------------+
+*/
+
+function emailOpen($conn, $email, $campaign, $ua) {
  // id, campaign, email, timestamp, 
 
-    $sql = "INSERT INTO emailOpens (email_hash, campaign, timestamp) VALUES(\"$EMAIL_HASH\", $campaign, NOW()) ON DUPLICATE KEY UPDATE timestamp=NOW()"; 
+    $sql = "INSERT INTO emailOpen (email, campaign, UA) VALUES(\"$email\", \"$campaign\", \"$ua\") "; 
 
     $result = $conn->query($sql);
 
 }
 
-function emailBlacklist($conn, $EMAIL_HASH) {
+function emailBlacklist($conn, $email) {
 
-    $sql = "INSERT INTO emailBlacklist (email_hash, timestamp) VALUES(\"$EMAIL_HASH\", NOW()) ON DUPLICATE KEY UPDATE timestamp=NOW()"; 
+    $sql = "INSERT INTO emailBlacklist (email, timestamp) VALUES(\"$email\", NOW()) ON DUPLICATE KEY UPDATE timestamp=NOW()"; 
 
     $result = $conn->query($sql);
 

@@ -4,9 +4,12 @@ include_once('my_func.php');
 
 //$my_id; 
 //$my_campaign;
-//$_SERVER['HTTP_USER_AGENT'];
-// $user_ip = getUserIP();
+// $track_ip = getUserIP();
 
+
+//echo "<br>UA: $track_ua";
+//echo "<br>IP: $track_ip";
+$result = emailOpen($conn, $my_email, $my_campaign, $track_ua);
 
 
 header('Content-Type: image/png');
